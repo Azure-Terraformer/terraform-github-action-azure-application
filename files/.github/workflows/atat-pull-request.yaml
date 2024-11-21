@@ -1,0 +1,14 @@
+name: AT-AT-Pull-Request-Terraform-Plan
+
+on:
+  pull_request:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-plan:
+    uses: .github/workflows/atat-terraform-core-workflow.yaml
+    with:
+      environment: 'dev'

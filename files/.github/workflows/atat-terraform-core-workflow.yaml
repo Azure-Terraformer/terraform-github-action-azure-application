@@ -4,8 +4,8 @@ on:
   workflow_call:
     inputs:
       environment:
+        type: environment
         required: true
-        type: string
         description: 'Environment to run against'
 
 permissions:

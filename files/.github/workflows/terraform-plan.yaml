@@ -27,7 +27,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: 'Az CLI login'
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         client-id: ${{ vars.TERRAFORM_ARM_CLIENT_ID }}
         tenant-id: ${{ vars.ARM_TENANT_ID }}
@@ -35,7 +35,7 @@ jobs:
 
     - id: setup
       name: Setup `terraform`
-      uses: hashicorp/setup-terraform@main
+      uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ env.TERRAFORM_VERSION }}
 
@@ -45,12 +45,13 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
         ARM_CLIENT_ID: ${{ vars.TERRAFORM_ARM_CLIENT_ID }}
-        ARM_OIDC_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
         ARM_USE_OIDC: true
         TF_VAR_application_name: ${{ vars.APPLICATION_NAME }}
         TF_VAR_environment_name: ${{ vars.ENVIRONMENT_NAME }}
       working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
+        export ARM_OID_REQUEST_TOKEN=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
+        
         terraform init \
           -backend-config="resource_group_name=${{ vars.BACKEND_RESOURCE_GROUP_NAME }}" \
           -backend-config="storage_account_name=${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}" \

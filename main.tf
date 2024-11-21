@@ -19,4 +19,5 @@ resource "github_repository_file" "bulk" {
   commit_author       = var.commit_user.name
   commit_email        = var.commit_user.email
   overwrite_on_create = true
+
 }

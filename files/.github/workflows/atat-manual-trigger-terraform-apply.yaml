@@ -1,4 +1,4 @@
-name: Terraform-Apply
+name: AT-AT-Manual-Trigger-Terraform-Apply
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
       name: Setup `terraform`
       uses: hashicorp/setup-terraform@main
       with:
-        terraform_version: ${{ env.TERRAFORM_VERSION }}
+        terraform_version: ${{ vars.TERRAFORM_VERSION }}
 
     - id: apply
       name: Terraform Apply

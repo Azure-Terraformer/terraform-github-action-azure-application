@@ -1,9 +1,9 @@
 
 locals {
   files = [
-    ".github/workflows/terraform-plan.yaml",
-    ".github/workflows/terraform-apply.yaml",
-    ".github/workflows/terraform-destroy.yaml"
+    ".github/workflows/atat-manual-trigger-terraform-plan.yaml",
+    ".github/workflows/atat-manual-trigger-terraform-apply.yaml",
+    ".github/workflows/atat-manual-trigger-terraform-destroy.yaml"
   ]
 }
 

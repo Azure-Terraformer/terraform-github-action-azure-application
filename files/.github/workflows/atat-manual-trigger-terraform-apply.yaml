@@ -8,9 +8,6 @@ on:
         type: environment
         required: true
 
-env:
-  TERRAFORM_VERSION: '1.9.8'
-
 permissions:
   id-token: write
   contents: read

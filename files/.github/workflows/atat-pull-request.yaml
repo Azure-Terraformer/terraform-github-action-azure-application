@@ -9,6 +9,6 @@ permissions:
 
 jobs:
   terraform-plan:
-    uses: .github/workflows/atat-terraform-core-workflow.yaml
+    uses: .github/workflows/atat-terraform-core-workflow-plan.yaml
     with:
       environment: 'dev'

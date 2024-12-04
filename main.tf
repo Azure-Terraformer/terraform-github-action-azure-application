@@ -30,7 +30,7 @@ resource "github_repository_file" "pull_request_plan" {
   branch     = var.branch
   file       = "atat-pull-request-plan-${var.environments[count.index]}.yaml"
   content = templatefile(
-    "${path.module}/files/atat-pull-request-plan.yaml",
+    "${path.module}/files/atat-pull-request-terraform-plan.yaml",
     {
       environment_name = var.environments[count.index]
     }

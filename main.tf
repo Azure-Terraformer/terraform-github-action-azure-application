@@ -32,7 +32,7 @@ resource "github_repository_file" "pull_request_plan" {
   content = templatefile(
     "${path.module}/files/.github/workflows/atat-pull-request-terraform-plan.yaml",
     {
-      environment_name = var.environments[count.index]
+      environment_name = "${var.environments[count.index]}"
     }
   )
   commit_message      = "Managed by Terraform"

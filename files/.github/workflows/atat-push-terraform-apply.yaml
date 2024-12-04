@@ -1,4 +1,4 @@
-name: AT-AT-Merge-Terraform-Apply-$TFTPL{environment_name}
+name: AT-AT-Push-Terraform-Apply-$TFTPL{environment_name}-$TFTPL{branch_name}
 
 on:
   push:

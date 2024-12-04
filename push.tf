@@ -1,5 +1,5 @@
 locals {
-  merge_original_yaml    = file("${path.module}/files/.github/workflows/atat-merge-terraform-apply.yaml")
+  merge_original_yaml    = file("${path.module}/files/.github/workflows/atat-push-terraform-apply.yaml")
   merge_escaped_yaml     = replace(local.merge_original_yaml, "$${", "$$${")
   merge_tf_template_yaml = replace(local.merge_escaped_yaml, "$TFTPL", "$")
 }

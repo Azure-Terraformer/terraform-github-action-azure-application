@@ -10,7 +10,7 @@ resource "github_repository_file" "pull_request_plan" {
 
   repository          = var.repository
   branch              = var.branch
-  file                = ".github/workflows/atat-pull-request-plan-terraform-plan-${each.key}.yaml"
+  file                = ".github/workflows/atat-pull-request-terraform-plan-${each.key}.yaml"
   commit_message      = "Managed by Terraform"
   commit_author       = var.commit_user.name
   commit_email        = var.commit_user.email

@@ -1,12 +1,9 @@
-name: AT-AT-Manual-Trigger-Terraform-Apply
+name: AT-AT-Merge-Terraform-Apply-$TFTPL{environment_name}
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to run against'
-        type: environment
-        required: true
+  push:
+    branches:
+      - $TFTPL{branch_name}
 
 permissions:
   id-token: write
@@ -14,17 +11,17 @@ permissions:
 
 jobs:
 
-  terraform-apply:
+  terraform-plan:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.event.inputs.environment }}
+      name: '$TFTPL{environment_name}'
 
     steps:
     - uses: actions/checkout@v3
 
     - name: 'Az CLI login'
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         client-id: ${{ vars.TERRAFORM_ARM_CLIENT_ID }}
         tenant-id: ${{ vars.ARM_TENANT_ID }}
@@ -32,12 +29,12 @@ jobs:
 
     - id: setup
       name: Setup `terraform`
-      uses: hashicorp/setup-terraform@main
+      uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ vars.TERRAFORM_VERSION }}
 
-    - id: apply
-      name: Terraform Apply
+    - id: plan
+      name: Terraform Plan
       env:
         ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
@@ -48,11 +45,20 @@ jobs:
       working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
         export ARM_OID_REQUEST_TOKEN=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
-
+        
         terraform init \
           -backend-config="resource_group_name=${{ vars.BACKEND_RESOURCE_GROUP_NAME }}" \
           -backend-config="storage_account_name=${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}" \
           -backend-config="container_name=${{ vars.BACKEND_STORAGE_STATE_CONTAINER_NAME }}" \
           -backend-config="key=${{ vars.APPLICATION_NAME }}-${{ vars.ENVIRONMENT_NAME }}"
           
-        terraform apply -auto-approve
+        terraform plan -out=terraform-plan-${{ github.run_id }}.tfplan
+
+    - name: Upload Plan to Azure Storage
+      working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
+      run: |
+        az storage blob upload \
+          --account-name ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }} \
+          --container-name ${{ vars.BACKEND_STORAGE_PLAN_CONTAINER_NAME }} \
+          --name terraform-plan-${{ github.run_id }}.tfplan \
+          --file terraform-plan-${{ github.run_id }}.tfplan

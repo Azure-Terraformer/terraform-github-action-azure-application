@@ -1,4 +1,4 @@
-name: AT-AT-Manual-Trigger-Terraform-Plan
+name: AT-AT-Pull-Request-Terraform-Plan-${environment_name}
 
 on:
   pull_request

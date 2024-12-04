@@ -1,4 +1,4 @@
-name: AT-AT-Pull-Request-Terraform-Plan-${environment_name}
+name: AT-AT-Pull-Request-Terraform-Plan-$TFTPL{environment_name}
 
 on:
   pull_request
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: '${environment_name}'
+      name: '$TFTPL{environment_name}'
 
     steps:
     - uses: actions/checkout@v3

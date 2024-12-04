@@ -10,3 +10,6 @@ variable "commit_user" {
     email = string
   })
 }
+variable "environments" {
+  type = list(string)
+}

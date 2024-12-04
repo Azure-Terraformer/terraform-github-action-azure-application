@@ -1,12 +1,7 @@
-name: AT-AT-Terraform-Core-Workflow
+name: AT-AT-Manual-Trigger-Terraform-Plan
 
 on:
-  workflow_call:
-    inputs:
-      environment:
-        type: environment
-        required: true
-        description: 'Environment to run against'
+  pull_request
 
 permissions:
   id-token: write
@@ -14,12 +9,11 @@ permissions:
 
 jobs:
 
-
   terraform-plan:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.event.inputs.environment }}
+      name: '${environment_name}'
 
     steps:
     - uses: actions/checkout@v3

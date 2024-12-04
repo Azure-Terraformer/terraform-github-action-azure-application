@@ -28,9 +28,9 @@ resource "github_repository_file" "pull_request_plan" {
 
   repository = var.repository
   branch     = var.branch
-  file       = "atat-pull-request-plan-terraform-plan-${var.environments[count.index]}.yaml"
+  file       = ".github/workflows/atat-pull-request-plan-terraform-plan-${var.environments[count.index]}.yaml"
   content = templatefile(
-    "${path.module}/files/atat-pull-request-terraform-plan.yaml",
+    "${path.module}/files/.github/workflows/atat-pull-request-terraform-plan.yaml",
     {
       environment_name = var.environments[count.index]
     }

@@ -11,5 +11,5 @@ variable "commit_user" {
   })
 }
 variable "environments" {
-  type = list(string)
+  type = map(string)
 }

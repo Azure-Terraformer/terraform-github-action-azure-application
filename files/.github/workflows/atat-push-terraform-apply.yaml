@@ -87,6 +87,7 @@ jobs:
         terraform_version: ${{ vars.TERRAFORM_VERSION }}
 
     - name: Download Plan from Azure Storage
+      working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
         az storage blob download \
           --account-name ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }} \

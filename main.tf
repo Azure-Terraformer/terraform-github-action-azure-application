@@ -42,7 +42,7 @@ resource "github_repository_file" "pull_request_plan" {
 
   content = templatestring(local.tf_template_yaml,
     {
-      environment_name = "${var.environments[count.index]}"
+      environment_name = var.environments[count.index]
     }
   )
 

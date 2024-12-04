@@ -24,8 +24,8 @@ resource "github_repository_file" "bulk" {
 
 locals {
   original_yaml    = file("${path.module}/files/.github/workflows/atat-pull-request-terraform-plan.yaml")
-  escaped_yaml     = replace(original_yaml, "$${", "$$$${")
-  tf_template_yaml = replace(escaped_yaml, "$TFTPL", "$")
+  escaped_yaml     = replace(local.original_yaml, "$${", "$$$${")
+  tf_template_yaml = replace(local.escaped_yaml, "$TFTPL", "$")
 }
 
 resource "github_repository_file" "pull_request_plan" {
@@ -40,7 +40,7 @@ resource "github_repository_file" "pull_request_plan" {
   commit_email        = var.commit_user.email
   overwrite_on_create = true
 
-  content = templatestring(tf_template_yaml,
+  content = templatestring(local.tf_template_yaml,
     {
       environment_name = "${var.environments[count.index]}"
     }

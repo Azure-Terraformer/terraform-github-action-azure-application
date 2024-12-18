@@ -1,4 +1,4 @@
-name: AT-AT-Release-$TFTPL{environment_name}-$TFTPL{branch_name}
+name: AT-AT-Release-$TFTPL{environment_name}
 
 on:
   push:

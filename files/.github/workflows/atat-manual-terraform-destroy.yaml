@@ -1,4 +1,4 @@
-name: AT-AT-Manual-Trigger-Terraform-Destroy
+name: AT-AT-Manual-Terraform-Destroy
 
 on:
   workflow_dispatch:

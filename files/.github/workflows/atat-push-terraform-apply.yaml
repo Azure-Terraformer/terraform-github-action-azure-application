@@ -1,4 +1,4 @@
-name: AT-AT-Push-Terraform-Apply-$TFTPL{environment_name}-$TFTPL{branch_name}
+name: AT-AT-Release-$TFTPL{environment_name}-$TFTPL{branch_name}
 
 on:
   push:
@@ -53,7 +53,7 @@ jobs:
           -backend-config="key=${{ vars.APPLICATION_NAME }}-${{ vars.ENVIRONMENT_NAME }}"
           
         terraform validate
-        
+
     - id: plan
       name: Terraform Plan
       env:

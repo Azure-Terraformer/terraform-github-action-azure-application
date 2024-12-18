@@ -1,4 +1,4 @@
-name: AT-AT-Pull-Request-Terraform-Plan-$TFTPL{environment_name}
+name: AT-AT-PR-Terraform-Plan-$TFTPL{environment_name}
 
 on:
   pull_request

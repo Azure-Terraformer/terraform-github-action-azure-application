@@ -19,6 +19,7 @@ resource "github_repository_file" "push_apply" {
   content = templatestring(local.merge_tf_template_yaml,
     {
       environment_name = each.key
+      branch_name      = each.value
     }
   )
 

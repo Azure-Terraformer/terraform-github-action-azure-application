@@ -14,7 +14,7 @@ permissions:
 
 jobs:
 
-  terraform-plan:
+  terraform-state-break-lease:
     runs-on: ubuntu-latest
 
     environment:
